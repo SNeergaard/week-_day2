@@ -42,15 +42,15 @@
         android:text="Choose Map Type"
         android:onClick="ChooseMapType"
         map:layout_constraintRight_toRightOf="parent"
-        map:layout_constraintLeft_toRightOf="@+id/btnCurrentLocation"
+        map:layout_constraintLeft_toRightOf="@+id/btnGetDirections"
         map:layout_constraintBottom_toBottomOf="parent"/>
 
     <Button
-        android:id="@+id/btnCurrentLocation"
+        android:id="@+id/btnGetDirections"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Show Current Location"
-        android:onClick="CurrentLocation"
+        android:text="Get Directions"
+        android:onClick="GetDirections"
         map:layout_constraintLeft_toLeftOf="parent"
         map:layout_constraintRight_toLeftOf="@+id/btnMapType"
         map:layout_constraintBottom_toBottomOf="parent"/>

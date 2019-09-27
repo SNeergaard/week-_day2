@@ -7,32 +7,29 @@ import android.content.pm.PackageManager
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
-open abstract class PermissionsManager {
+open class PermissionsManager(val context : Context, var manager: IPermissionManager) {
     val PERMISSION_INDEX_ID = 777
-    internal abstract var manager: IPermissionManager
-    internal abstract var context: Context
+//    private lateinit var manager: IPermissionManager
+
+
+//    fun PermissionManager(context: Context) {
+//        this.context = context
+//        manager = context as IPermissionManager
+//    }
 
     open fun checkForPermissions() {
         // Here, thisActivity is the current activity
-        if (ContextCompat.checkSelfPermission(
-                context,
+        if (ContextCompat.checkSelfPermission(context,
                 Manifest.permission.READ_CONTACTS
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
+            ) != PackageManager.PERMISSION_GRANTED) {
             // Permission is not granted
             // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(
                     context as Activity,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                )
-            ) {
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
             } else {
                 // No explanation needed; request the permission
-                ActivityCompat.requestPermissions(
-                    context as Activity,
-                    arrayOf(Manifest.permission.READ_CONTACTS),
-                    PERMISSION_INDEX_ID
-                )
+                requestPermission()
             }
         } else {
             manager.onPermissionResult(true)
@@ -40,11 +37,19 @@ open abstract class PermissionsManager {
     }
 
     fun requestPermission() {
-
+        ActivityCompat.requestPermissions(
+            context as Activity,
+            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+            PERMISSION_INDEX_ID)
     }
 
-    fun permissionResult() {
-
+    fun permissionResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        when (requestCode) {
+            PERMISSION_INDEX_ID -> {
+                manager.onPermissionResult(grantResults.size > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            }
+        }
     }
 
     interface IPermissionManager {

@@ -21,15 +21,22 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    repositories {
+        mavenCentral()
+        maven { url 'https://mapbox.bintray.com/mapbox' }
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.core:core-ktx:1.1.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation "com.google.android.gms:play-services-location:17.0.0"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.42.0'
     testImplementation 'junit:junit:4.12'
     apply plugin: "kotlin-android-extensions"
     androidTestImplementation 'androidx.test:runner:1.2.0'
